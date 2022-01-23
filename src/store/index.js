@@ -3,8 +3,8 @@ import Vuex from 'vuex'
 import Clear from '../assets/images/weather/clear.svg'
 import Clouds from '../assets/images/weather/clouds.svg'
 import Drizzle from '../assets/images/weather/drizzle.svg'
-import Dust from '../assets/images/weather/dust_sand_ash.svg'
-import Mist from '../assets/images/weather/mist_smoke_haze_fog.svg'
+import DustSandAsh from '../assets/images/weather/dust_sand_ash.svg'
+import MistSmokeHazeFog from '../assets/images/weather/mist_smoke_haze_fog.svg'
 import Rain from '../assets/images/weather/rain.svg'
 import Snow from '../assets/images/weather/snow.svg'
 import Squall from '../assets/images/weather/squall.svg'
@@ -20,13 +20,18 @@ export default new Vuex.Store({
     apiUrl: 'https://api.openweathermap.org/data/2.5/weather',
     apiUrlDadata: 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',
     location: 'ru',
-    favoriteCities: ['Москва', 'Ижевск', 'Санкт-Петербург', 'Тольятти', 'Нью-Йорк'],
+    favoriteCities: [],
     images: {
       'Clear': Clear,
       'Drizzle': Drizzle,
       'Clouds': Clouds,
-      'Dust': Dust,
-      'Mist': Mist,
+      'Dust': DustSandAsh,
+      'Sand': DustSandAsh,
+      'Ash': DustSandAsh,
+      'Mist': MistSmokeHazeFog,
+      'Smoke': MistSmokeHazeFog,
+      'Haze': MistSmokeHazeFog,
+      'Fog': MistSmokeHazeFog,
       'Rain': Rain,
       'Snow': Snow,
       'Squall': Squall,
@@ -67,20 +72,25 @@ export default new Vuex.Store({
     addToFavoriteCities(state, payload) {
       state.favoriteCities.push(payload);
       state.favoriteCities = state.favoriteCities.sort();
+      localStorage.setItem('favorites', JSON.stringify(state.favoriteCities))
     },
     removeFromFavoriteCities(state, payload) {
       let indexOfPayload = state.favoriteCities.indexOf(payload);
       if (indexOfPayload !== -1) {
         state.favoriteCities.splice(indexOfPayload, 1);
       }
+      localStorage.setItem('favorites', JSON.stringify(state.favoriteCities))
     },
+    loadFavoriteCitiesFromLS(state, payload) {
+      state.favoriteCities = payload;
+    }
   },
   actions: {
-    addToFavoriteCities({commit}) {
-      commit('addToFavoriteCities');
+    addToFavoriteCities({commit}, payload) {
+      commit('addToFavoriteCities', payload);
     },
-    removeFromFavoriteCities({commit}) {
-      commit('removeFromFavoriteCities');
+    removeFromFavoriteCities({commit}, payload) {
+      commit('removeFromFavoriteCities', payload);
     }
   }
 })

@@ -3,6 +3,25 @@
     <router-view></router-view>
   </div>
 </template>
+<script>
+export default ({
+  name: 'App',
+  methods: {
+    init() {
+      let favoritesFromLS = JSON.parse(localStorage.getItem('favorites'));
+      if (favoritesFromLS !== null && favoritesFromLS.length > 0) {
+        this.$store.commit('loadFavoriteCitiesFromLS', favoritesFromLS)
+      } else {
+        localStorage.setItem('favorites', JSON.stringify(this.$store.getters.getFavoriteCities))
+      }
+    }
+  },
+  beforeMount() {
+    this.init()
+  }
+})
+</script>
+
 
 <style lang="scss">
 // Global styles

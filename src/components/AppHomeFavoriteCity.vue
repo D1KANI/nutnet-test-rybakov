@@ -1,5 +1,5 @@
 <template>
-  <router-link class="city" :to="{ name: 'Home' }">
+  <router-link class="city" :to="`/city/${weather.name}`">
     <div class="city__name">{{ weather.name }}</div>
     <div class="city__temperature">
       <span>{{ weather.temperature }}</span

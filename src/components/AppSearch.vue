@@ -1,7 +1,7 @@
 <template>
   <div class="search">
     <div class="search__inner">
-      <input @input="searchCity()" v-model="inputCity" type="text" class="search__input" placeholder="Укажите город">
+      <input @input="searchCity()" @keyup.enter.prevent v-model="inputCity" type="text" class="search__input" placeholder="Укажите город">
     </div>
     <transition name="fade">
       <div class="search-result" v-if="results.length > 0">
@@ -57,9 +57,6 @@ export default ({
       } else {
         this.results = [];
       }
-    },
-    shuffle: function () {
-      this.results = _.shuffle(this.results)
     }
   }
 })
@@ -67,6 +64,10 @@ export default ({
 <style lang="scss" scoped>
   .search {
     position: relative;
+    &__inner {
+      position: relative;
+      z-index: 2;
+    }
     &__input {
       width: 100%;
       padding: 18px 20px 19px;
@@ -82,7 +83,10 @@ export default ({
       }
     }
     &-result {
+      background-color: #30354B;
+      border-radius: 6px;
       position: absolute;
+      z-index: 1;
       width: 100%;
       top: 100%;
       left: 50%;
@@ -90,7 +94,6 @@ export default ({
       &__item {
         display: block;
         width: 100%;
-        background-color: #30354B;
         padding: 20px;
         color: #fff;
       }

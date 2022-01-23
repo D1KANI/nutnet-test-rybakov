@@ -1,5 +1,5 @@
 <template>
-  
+  <div class="city-detail"></div>
 </template>
 <script>
 

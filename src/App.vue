@@ -22,6 +22,12 @@ a {
   color: inherit;
 }
 
+input, 
+button,
+textarea {
+  outline: none;
+}
+
 #app {
   min-height: 100vh;
   display: flex;

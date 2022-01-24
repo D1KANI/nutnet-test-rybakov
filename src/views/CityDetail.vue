@@ -215,7 +215,7 @@ $gray: #8A91AB;
     font-size: 130px;
     line-height: 1.1;
     background: -webkit-linear-gradient(#fff, rgba(255, 255, 255, 0));
-    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
   }
   &__image {

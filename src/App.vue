@@ -52,4 +52,14 @@ textarea {
   display: flex;
   flex-direction: column;
 }
+
+.container {
+  padding: 0 34px;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+}
 </style>

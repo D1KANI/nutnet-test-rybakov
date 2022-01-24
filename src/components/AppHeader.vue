@@ -20,4 +20,9 @@ export default ({
     padding: 0 23px;
     background-color: #2A2F45;
   }
+  @media screen and (max-width: 560px) {
+    .header {
+      background-color: #161B30;
+    }
+  }
 </style>

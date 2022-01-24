@@ -61,6 +61,10 @@ export default {
   background: rgba(41, 46, 68, 0.5);
   padding: 23px 0 16px;
   border-radius: 6px;
+  transition: background 250ms ease-in-out;
+  &:hover {
+    background: rgba(41, 46, 68, 0.8);
+  }
   &__name {
     margin-bottom: 12px;
     font-size: 14px;
@@ -76,11 +80,13 @@ export default {
     text-align: center;
   }
   &__image {
-    width: 100%;
+    display: block;
     height: 100%;
+    margin: 0 auto;
     object-fit: contain;
+    object-position: 50% 50%;
     &-wrapper {
-      width: 78px;
+      width: auto;
       height: 78px;
       margin: 0 auto;
     }

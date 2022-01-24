@@ -39,4 +39,15 @@ export default ({
       width: calc(100% / 3 - 32px);
     }
   }
+  @media screen and ( max-width: 960px) {
+    .home-cities {
+      &__flex {
+        margin: 32px -9px 0;
+      }
+      &__item {
+        margin: 0 9px 30px;
+        width: calc(100% / 2 - 18px);
+      }
+    }
+  }
 </style>

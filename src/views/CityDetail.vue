@@ -1,44 +1,47 @@
 <template>
   <div class="city-detail">
-    <app-header></app-header>
+    <app-header v-if="!isMobile"></app-header>
     <main class="main">
-      <div class="city-detail__head">
-        <router-link :to="{ name: 'Home' }" class="city-detail__back">Назад</router-link>
-        <div @click="changeFavoriteStatus()" class="favorite">
-          <svg
-            v-if="!isFavorite"
-            v-svg
-            symbol="bookmark"
-            size="0 0 24 24"
-            class="favorite__image"
-          ></svg>
-          <svg
-            v-else
-            v-svg
-            symbol="bookmarkUse"
-            size="0 0 24 24"
-            class="favorite__image"
-          ></svg>
+      <div class="container">
+        
+        <div class="city-detail__head">
+          <router-link :to="{ name: 'Home' }" class="city-detail__back">Назад</router-link>
+          <div @click="changeFavoriteStatus()" class="favorite">
+            <svg
+              v-if="!isFavorite"
+              v-svg
+              symbol="bookmark"
+              size="0 0 24 24"
+              class="favorite__image"
+            ></svg>
+            <svg
+              v-else
+              v-svg
+              symbol="bookmarkUse"
+              size="0 0 24 24"
+              class="favorite__image"
+            ></svg>
+          </div>
         </div>
-      </div>
-      <div class="city-detail__content">
-        <div class="city-detail__name">{{ weather.name }}</div>
-        <div class="city-detail__desc">{{ weather.description }}</div>
-        <div class="city-detail__flex">
-        <div class="city-detail__temp"><span>{{ weather.temperature }}</span>°</div>
-        <div class="city-detail__image-wrapper">
-          <img :src="this.weather.image" alt="" class="city-detail__image">
+        <div class="city-detail__content">
+          <div class="city-detail__name">{{ weather.name }}</div>
+          <div class="city-detail__desc">{{ weather.description }}</div>
+          <div class="city-detail__flex">
+          <div class="city-detail__temp"><span>{{ weather.temperature }}</span>°</div>
+          <div class="city-detail__image-wrapper">
+            <img :src="this.weather.image" alt="" class="city-detail__image">
+          </div>
+          </div>
+          <div class="city-detail__pressure">
+            <svg
+              v-svg
+              symbol="barometer"
+              size="0 0 24 24"
+            ></svg>
+            <span>{{ weather.pressure }} мм рт. ст.</span>
+          </div>
+          <div class="city-detail__sunset">Закат в {{ weather.sunsetTime }}</div>
         </div>
-        </div>
-        <div class="city-detail__pressure">
-          <svg
-            v-svg
-            symbol="barometer"
-            size="0 0 24 24"
-          ></svg>
-          <span>{{ weather.pressure }} мм рт. ст.</span>
-        </div>
-        <div class="city-detail__sunset">Закат в {{ weather.sunsetTime }}</div>
       </div>
     </main>
   </div>
@@ -79,6 +82,14 @@ export default {
         return false;
       }
     },
+    isMobile() {
+      let width = window.screen.width
+      if (width < 768) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   },
   methods: {
     ...mapActions(["addToFavoriteCities", "removeFromFavoriteCities"]),
@@ -129,7 +140,7 @@ $gray: #8A91AB;
   background: radial-gradient(80.36% 80.36% at 50% 0%, #5A607C 0%, #161B30 100%);
   display: flex;
   flex-direction: column;
-  .main {
+  .container, .main {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -137,7 +148,7 @@ $gray: #8A91AB;
   &__head {
     display: flex;
     justify-content: space-between;
-    margin: 24px 34px 28px;
+    margin: 24px 0 28px;
   }
   &__back {
     padding-left: 36px;
@@ -145,6 +156,7 @@ $gray: #8A91AB;
     line-height: 1.1;
     color: $gray;
     position: relative;
+      transition: color 175ms ease-out;
     &::before,
     &::after {
       content: "";
@@ -155,12 +167,20 @@ $gray: #8A91AB;
       position: absolute;
       left: 7px;
       top: 50%;
+      transition: background-color 175ms ease-out;
     }
     &::before {
       transform: translateY(calc(-50% - 8px)) rotate(-45deg);
     }
     &::after {
       transform: translateY(calc(-50%)) rotate(45deg);
+    }
+    &:hover {
+      color: #fff;
+      &::before,
+      &::after {
+        background-color: #fff;
+      }
     }
   }
   &__content {
@@ -231,6 +251,24 @@ $gray: #8A91AB;
     font-size: 16px;
     line-height: 1.1;
     color: $gray;
+  }
+}
+
+@media screen and (max-width: 590px) {
+  .city-detail {
+    &__name {
+      font-size: 24px;
+    }
+    &__desc {
+      font-size: 14px;
+    }
+    &__flex {
+      flex-direction: column;
+      margin-bottom: 16px;
+    }
+    &__temp {
+      font-size: 120px;
+    }
   }
 }
 

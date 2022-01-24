@@ -56,4 +56,12 @@ export default {
   }
 }
 
+@media screen and (max-width: 560px) {
+  .home {
+    &-body {
+      padding-top: 20px;
+    }
+  }
+}
+
 </style>
